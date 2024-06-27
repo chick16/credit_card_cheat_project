@@ -312,4 +312,150 @@ plt.title('混淆矩阵', fontsize=18, fontweight='bold')
 plt.yticks(rotation=360)
 plt.show()
 
-from sklearn.model_selection import train_test_split
+import time
+# KNN模型分类
+
+from sklearn.neighbors import KNeighborsClassifier
+
+knn = KNeighborsClassifier()
+
+start_time = time.time()
+knn.fit(x_train,y_train)
+end_time = time.time()
+
+print(f'KNN模型训练花费的时间为:{end_time - start_time} s')
+
+from sklearn.metrics import roc_auc_score,recall_score
+
+start_time = time.time()
+
+y_pred_proba = knn.predict_proba(x_test)
+y_pred = knn.predict(x_test)
+end_time = time.time()
+
+score_knn = roc_auc_score(y_test,y_pred_proba[:,1])
+acc_knn = (y_pred == y_test).mean()
+recall_score_knn = recall_score(y_test,y_pred)
+
+predict_time_knn = end_time-start_time
+
+print(f'KNN 模型预测花费的时间为:{predict_time_knn} s')
+print(f'KNN 模型的精确度为:{acc_knn}')
+print(f'KNN 模型的精确度为:{recall_score_knn}')
+print(f'KNN 模型的ROC_AUC为: {score_knn}')
+
+# 高斯朴素贝叶斯模型分类
+
+from sklearn.naive_bayes import GaussianNB
+
+gnb = GaussianNB()
+
+start_time = time.time()
+gnb.fit(x_train,y_train)
+end_time = time.time()
+
+print(f'高斯朴素贝叶斯训练花费的时间为:{end_time - start_time} s')
+
+start_time = time.time()
+
+y_pred_proba = gnb.predict_proba(x_test)
+y_pred = gnb.predict(x_test)
+end_time = time.time()
+
+score_gnb = roc_auc_score(y_test,y_pred_proba[:,1])
+acc_gnb = (y_pred == y_test).mean()
+recall_score_gnb = recall_score(y_test,y_pred)
+
+predict_time_gnb = end_time-start_time
+
+print(f'高斯朴素贝叶斯模型预测花费的时间为:{predict_time_gnb} s')
+print(f'高斯朴素贝叶斯模型的精确度为:{acc_gnb}')
+print(f'高斯朴素贝叶斯模型的精确度为:{recall_score_gnb}')
+print(f'高斯朴素贝叶斯的ROC_AUC为: {score_gnb}')
+
+# 逻辑回归模型分类
+
+from sklearn.linear_model import LogisticRegression
+
+lr = LogisticRegression()
+
+start_time = time.time()
+lr.fit(x_train,y_train)
+end_time = time.time()
+
+print(f'逻辑回归模型训练花费的时间为:{end_time - start_time} s')
+
+start_time = time.time()
+
+y_pred_proba = lr.predict_proba(x_test)
+y_pred = lr.predict(x_test)
+end_time = time.time()
+
+score_lr = roc_auc_score(y_test,y_pred_proba[:,1])
+acc_lr = (y_pred == y_test).mean()
+recall_lr =recall_score(y_test,y_pred)
+
+predict_time_lr = end_time-start_time
+
+print(f'逻辑回归模型预测花费的时间为:{predict_time_lr} s')
+print(f'逻辑回归模型的精确度为:{acc_lr}')
+print(f'逻辑回归模型的召回率为:{recall_lr}')
+print(f'逻辑回归模型的ROC_AUC为: {score_lr}')
+
+# 决策树模型分类
+from sklearn.tree import DecisionTreeClassifier
+
+dtc = DecisionTreeClassifier()
+
+start_time = time.time()
+dtc.fit(x_train,y_train)
+end_time = time.time()
+
+print(f'决策树模型训练花费的时间为:{end_time - start_time} s')
+
+start_time = time.time()
+
+y_pred_proba = dtc.predict_proba(x_test)
+y_pred = dtc.predict(x_test)
+end_time = time.time()
+
+score_dtc = roc_auc_score(y_test,y_pred_proba[:,1])
+acc_dtc = (y_pred == y_test).mean()
+recall_dtc =recall_score(y_test,y_pred)
+
+predict_time_dtc = end_time-start_time
+
+print(f'决策树模型预测花费的时间为:{predict_time_dtc} s')
+print(f'决策树模型的精确度为:{acc_dtc}')
+print(f'决策树模型的召回率为:{recall_dtc}')
+print(f'决策树模型的ROC_AUC为: {score_dtc}')
+
+# 随机森林模型分类
+
+from sklearn.ensemble import RandomForestClassifier
+
+rfc = RandomForestClassifier()
+
+start_time = time.time()
+rfc.fit(x_train,y_train)
+end_time = time.time()
+
+print(f'随机森林模型训练花费的时间为:{end_time - start_time} s')
+
+start_time = time.time()
+
+y_pred_proba = rfc.predict_proba(x_test)
+y_pred = rfc.predict(x_test)
+end_time = time.time()
+
+score_rfc = roc_auc_score(y_test,y_pred_proba[:,1])
+acc_rfc = (y_pred == y_test).mean()
+recall_rfc =recall_score(y_test,y_pred)
+
+predict_time_rfc = end_time-start_time
+
+print(f'随机森林模型预测花费的时间为:{predict_time_rfc} s')
+print(f'随机森林模型的精确度为:{acc_rfc}')
+print(f'随机森林模型的召回率为:{recall_rfc}')
+print(f'随机森林模型的ROC_AUC为: {score_rfc}')
+
